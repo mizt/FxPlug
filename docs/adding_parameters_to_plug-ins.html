@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex,nofollow">
+		<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+		<title>Adding parameters to plug-ins</title>
+		<link rel="icon" href="data:;base64,=">
+		<style>
+			
+			* {
+				margin:0;
+				padding:0;
+				text-rendering:optimizeSpeed;
+				letter-spacing:1.5px;
+				font-kerning:none;
+				outline : none;
+			}
+			
+			body {
+				-webkit-text-size-adjust:100%;
+				font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+				overflow-x:hidden;
+				color:#242424;
+				font-weight:normal;
+				font-size:14px;
+				line-height:26px;
+				font-feature-settings:"palt";
+				word-wrap: break-word;
+				word-break:break-word;
+				text-align:left;
+				-webkit-tap-highlight-color: transparent;
+				background:#FFF;
+			}
+			
+			::selection { background:rgba(128,128,128,0.25); }
+			::-moz-selection { background:rgba(128,128,128,0.25); }
+			pre::selection { background:rgba(255,255,255,0.25); }
+			pre::-moz-selection { background:rgba(255,255,255,0.25); }
+			img::selection, iframe::selection { background:rgba(0,0,0,0); }
+			img::-moz-selection, iframe::-moz-selection { background:rgba(0,0,0,0); }
+			
+			.strikethrough { text-decoration:line-through; } 
+			.br:before { content:"\A"; white-space:pre; }
+			
+			.condensed {
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			#container {
+				position:relative;
+				width:86vw;
+				min-height:100%;
+				max-width:1921px;
+				margin:0 auto 0 auto;
+				padding:2px 0 48px 0;
+			}
+			
+			h1, h2, h3, h4, p, ul {
+				margin-top:17px;
+				margin-bottom:-7px;
+			}
+			
+			h1, h2, h3, h4 {
+				font-weight:600;
+			}
+			
+			h1 {
+				font-size:22px;
+				line-height:32px;
+				text-align:justify;
+				text-align-last:left;
+				word-wrap: break-word;
+				word-break:break-all;
+			}
+			
+			h2 {
+				font-size:18px;
+				line-height:28px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h3 {
+				font-size:16px;
+				line-height:26px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h4, p, li {
+				font-size:14px;
+				line-height:24px;
+			}
+			
+			li {
+				margin-left:1.5em;
+			}
+			
+			p {
+				font-weight:normal;
+				text-align:left;
+				word-wrap: break-word;
+				word-break: break-strict;
+			}
+			
+			#container > h1:last-child,
+			#container > h2:last-child,
+			#container > h3:last-child,
+			#container > p:last-child {
+				margin-bottom:0px;
+			}
+			
+			img, pre, table, video, audio { margin-top:24px; }
+			
+			a {
+				color:#00F;
+				text-decoration:none;
+			}
+			
+			pre {
+				font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+				font-size:13px;
+				line-height:20px;
+				border-radius:2px;
+				padding:12px 16px;
+				background-color:#336;
+				color:#EEE;
+				tab-size:2;
+				white-space:pre;
+				white-space:pre-wrap;
+				white-space:-pre-wrap;
+				white-space:-o-pre-wrap;
+				white-space:-moz-pre-wrap;
+				white-space:-hp-pre-wrap;
+				word-wrap:break-word;
+				word-break:break-all;
+				box-sizing: border-box;
+			}
+			
+			img {
+				display:block;
+				width:auto;
+				max-width:100%;
+				background:#FAFAFA;
+				vertical-align:top;
+			}
+			
+			p.required:after {
+				content:''; 
+				height: 6px; 
+				width: 6px; 
+				display:inline-block;
+				border-radius: 50%;
+				background:#F44;
+				vertical-align:top;
+				margin-left:4px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<script>
+			
+			// https://github.com/KoryNunn/crel/blob/master/crel.min.js
+			(e=>{const t="function",n="isNode",o=(e,t)=>typeof e===t,r=(e,t)=>{null!==t&&(Array.isArray(t)?t.map(t=>r(e,t)):(i[n](t)||(t=document.createTextNode(t)),e.appendChild(t)))};function i(e,a){let d,f,l=arguments,c=1;if(e=i.isElement(e)?e:document.createElement(e),o(a,"object")&&!i[n](a)&&!Array.isArray(a))for(d in c++,a)f=a[d],o(d=i.attrMap[d]||d,t)?d(e,f):o(f,t)?e[d]=f:e.setAttribute(d,f);for(;c<l.length;c++)r(e,l[c]);return e}i.attrMap={},i.isElement=(e=>e instanceof Element),i[n]=(e=>e instanceof Node),i.proxy=new Proxy(i,{get:(e,t)=>(!(t in i)&&(i[t]=i.bind(null,t)),i[t])}),e(i,t)})((e,t)=>{"object"==typeof exports?module.exports=e:typeof define===t&&define.amd?define(()=>e):this.crel=e});
+				
+			const link = (url,text)=>{
+				return crel("a",{"href":url,"target":"_blank",rel:"noopener noreferrer"},text);
+			};
+				
+			const br = ()=>{
+				return crel("br");
+			};
+				
+			const bold = (text)=>{
+				return crel("span",{"style":"font-weight:bold"},text);
+			};
+				
+			crel(document.body,crel("div",{"id":"container"},
+				crel("h1",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/adding_parameters_to_plug-ins?language=objc","Adding parameters to plug-ins")),
+				crel("p","インスペクタに表示されるプラグインの標準およびカスタムのユーザー向けパラメータを作成します。"),
+				crel("h2","Overview"),
+				crel("p","ホストアプリケーションによってプラグインが呼び出されると、ホストアプリケーションは",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378633-addparameterswitherror?language=objc","addParametersWithError:"),"メソッドを呼び出してプラグインのパラメータリストを要求します。",br(),
+					"このメソッドはFxBaseEffectプロトコルで宣言され",link("./fxtileableeffect.html","FxTileableEffect"),"プロトコルによって継承されます。",br(),
+					"次に、ホストアプリケーションはインスペクターにパラメーターを表示します。"),
+				crel("h2","Add a parameter / パラメータを追加する"),
+				crel("p","FxPlug SDKには、次の標準タイプのパラメータを追加するためのメソッドが含まれています。"),
+				crel("ul",
+					crel("li","Floating-point, integer, and percent sliders"),
+					crel("li","Angle slider"),
+					crel("li","Toggle button (checkbox)"),
+					crel("li","RGB or RGBA color"),
+					crel("li","Point"),
+					crel("li","Popup menu"),
+					crel("li","String"),
+					crel("li","Histogram"),
+					crel("li","Gradient"),
+					crel("li","Path picker"),
+					crel("li","Font menu"),
+					crel("li","Help button"),
+					crel("li","Push button"),
+					crel("li","Image Reference"),
+					crel("li","Group")
+				),
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/49a3248a3b/rendered2x-1596069706.png"}),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378633-addparameterswitherror?language=objc","addParametersWithError:"),"メソッドでは、プラグインはまずapiForProtocol:メソッド（PluginManagerフレームワークによって定義される）を呼び出して、プロトコルを実装するホストAPIオブジェクトを取得します。",br(),
+					"次に",link("https://developer.apple.com/documentation/professional_video_applications/fxparametercreationapi_v5?language=objc","FxParameterCreationAPI_v5"),"プロトコルのメソッドを使用してパラメーターを1つずつ追加します。"),
+				
+				crel("p","例えば次のコードは、単純な不透明度フィルターのaddParametersWithError:メソッドを示しています。"),
+				
+				crel("h4","Important"),
+				crel("p","パラメータIDは[1,9998]の範囲内である必要があります。",br(),"この範囲外のIDは無効です。"),
+				
+				crel("pre",`enum {
+		kOpacityID = 1
+};
+
+- (BOOL)addParametersWithError:(NSError**)error {
+		id<FxParameterCreationAPI_v5> paramAPI = [apiManager apiForProtocol:@protocol(FxParameterCreationAPI_v5)];
+		BOOL success =[paramAPI addFloatSliderWithName:@"Opacity" parameterId:kOpacityID defaultValue:1.0 parameterMin:0.0 parameterMax:100.0 sliderMin:0.0 sliderMax:10.0 delta:0.1 parameterFlags:kFxParameterFlag_DEFAULT];
+		return success;
+} `),
+				
+				crel("h4","Note"),
+				
+				crel("p","ミックススライダーパラメーターはフィルタープラグインに自動的に追加され、パブリッシュOSCトグルパラメーターはMotionでオンスクリーンコントロールを含むプラグインに自動的に追加されます。",br(),
+					"OSCのパブリッシュ切り替えパラメータは、Final Cut Proでは決して表示されません。"),
+				
+				crel("h2","Create a custom parameter / カスタムパラメータを作成する"),
+				
+				crel("p","標準のパラメータタイプに加えて、次の方法を使用して、不透明データタイプのカスタムパラメータを作成できます。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxparametercreationapi_v5/3378569-addcustomparameterwithname?changes=__5","addCustomParameterWithName:parameterID:defaultValue:parameterFlags:")),
+				
+				crel("p","各カスタムパラメーターは",link("https://developer.apple.com/documentation/professional_video_applications/fxcustomparameterviewhost_v2?language=objc","FxCustomParameterViewHost_v2"),"のメソッドによって定義されるカスタムパラメータービューに関連付ける必要があります。"),
+				
+				crel("h2","Interact with parameters / パラメータを操作する"),
+				crel("p","ユーザーがFxPlugプラグインのパラメータコントロールを変更すると、ホストアプリケーションは ",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378638-parameterchanged?language=objc","parameterChanged:atTime:error:"),"プラグインメソッドを呼び出します。",br(),
+					"これは、他のパラメータの状態を変更するプラグインに役立ちます。",br(),
+					"例えばユーザーがトグルボタンを変更すると、プラグインは",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378638-parameterchanged?language=objc","parameterChanged:atTime:error:"),"中に他のパラメータを非表示にしたり、表示したりできます。"),
+				
+				crel("h2","Handle user interaction for custom UI parameters / カスタムUIパラメータに対するユーザーインタラクションを処理する"),
+				
+				crel("p","カスタムUIパラメータを使用すると、開発者はカスタムUIに直接描画し、ホストアプリケーションがインスペクタ内に作成したスペースに独自のコントロールを作成できます。",br(),
+					"ホスト アプリケーションは、標準のUIパラメーターとは異なる方法でカスタムパラメーターのユーザー操作を処理します。",br(),
+					"たとえば、カスタム パラメータを開発する場合、それらは",link("https://developer.apple.com/documentation/professional_video_applications/fxcustomparameterviewhost_v2","FxCustomParameterViewHost_v2"),"プロトコルに準拠する必要があります。",br(),
+					"この例は、FxSimpleColorCorrectorサンプルプラグインにあります。"),
+				
+				crel("p","プラグインでは、ホストアプリにNSViewサブクラスを提供する",link("https://developer.apple.com/documentation/professional_video_applications/fxcustomparameterviewhost_v2/3378466-createview","createViewForParameterID:"),"メソッドを実装することにより、カスタムパラメーターは FxParameterViewHostプロトコルに準拠します。",br(),
+					"他のNSViewサブクラスと同様に、このカスタムビューはウィンドウ内に描画され、マウス、キー、タブレット イベントなどのユーザー アクションの通知を受け取ります。",br(),
+					"ユーザー イベントに応答して、カスタム ビューはパラメーター値を設定します。",br(),
+					"通常、カスタム パラメータの値を設定します。",br(),
+					"ホストアプリケーションはパラメータ値が変更されたことに気づき、プラグインを呼び出して新しいパラメータ値でレンダリングします。"),
+				
+				crel("p","ラグインは、カスタムビューオブジェクトをプログラムで作成することも、XIBファイル（XcodeのInterface Builderで作成され、プラグインのResourcesフォルダに配置される）から取得することもできます。"),
+				
+				crel("p","プラグインのカスタムビューメソッドは、プラグインがパラメータ値にアクセスする前に",link("https://developer.apple.com/documentation/professional_video_applications/fxcustomparameteractionapi_v4","FxCustomParameterActionAPI_v4"),"ホストAPIの",link("https://developer.apple.com/documentation/professional_video_applications/fxcustomparameteractionapi_v4/3378464-startaction","startAction(_:)"),"メソッドを呼び出し、パラメータ値へのアクセスが終了した後に",link("https://developer.apple.com/documentation/professional_video_applications/fxcustomparameteractionapi_v4/3378463-endaction","endAction(_:)"),"メソッドを呼び出す必要があります。",br(),
+					"これにより、ホストアプリケーションが内部状態をセットアップして復元できるようになります。"),
+				
+				crel("h2","Update versioning for your plug-in’s parameters / プラグインのパラメータのバージョン管理を更新する"),
+			
+				crel("p","プラグインを開発していくうちに、デフォルト値や範囲の変更など、パラメータの廃止、追加、更新が必要になる場合があります。"),
+				
+				crel("p","古いプラグインを使用しているプロジェクトが引き続き正しく機能することを確認するには",link("https://developer.apple.com/documentation/professional_video_applications/fxversioningapi","FxVersioningAPI"),"を使用して、プロジェクトで使用されているプラ​​グインのバージョンを確認します。",br(),"この情報を使用すると、パラメーターコードを分岐したり、プロジェクトを更新したり、必要に応じて特殊なケースを処理したりできます。"),
+				
+				crel("p","たとえば、浮動小数点スライダーを使用してバージョン1の明るさフィルターを作成し、それをプロジェクトに適用すると、プロジェクトはスライダーの値とともにプラグインのバージョン番号を保存します。",br(),
+					"プロジェクトのその後の起動時に",link("https://developer.apple.com/documentation/professional_video_applications/fxversioningapi/1809064-versionatcreation?language=objc","versionAtCreation"),"バージョン番号1を確認できます。"),
+			
+				crel("p","詳細については",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/versioning_and_obsoleting_old_plug-ins?language=objc","Versioning and obsoleting old plug-ins"),"を参照してください。"),
+			
+				crel("h4","Tip"),
+				crel("p","後で2番目のパラメーターを使用するように明るさフィルターを更新する場合は、プラグインのバージョンを更新します。",br(),
+					"次に、それ以降の起動時にバージョンチェックを実行し、バージョン番号2の2番目のパスを追加します。")
+			));
+				
+		</script>
+	</body>
+</html>

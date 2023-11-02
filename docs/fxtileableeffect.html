@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex,nofollow">
+		<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+		<title>FxTileableEffect</title>
+		<link rel="icon" href="data:;base64,=">
+		<style>
+			
+			* {
+				margin:0;
+				padding:0;
+				text-rendering:optimizeSpeed;
+				letter-spacing:1.5px;
+				font-kerning:none;
+				outline : none;
+			}
+			
+			body {
+				-webkit-text-size-adjust:100%;
+				font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+				overflow-x:hidden;
+				color:#242424;
+				font-weight:normal;
+				font-size:14px;
+				line-height:26px;
+				font-feature-settings:"palt";
+				word-wrap: break-word;
+				word-break:break-word;
+				text-align:left;
+				-webkit-tap-highlight-color: transparent;
+				background:#FFF;
+			}
+			
+			::selection { background:rgba(128,128,128,0.25); }
+			::-moz-selection { background:rgba(128,128,128,0.25); }
+			pre::selection { background:rgba(255,255,255,0.25); }
+			pre::-moz-selection { background:rgba(255,255,255,0.25); }
+			img::selection, iframe::selection { background:rgba(0,0,0,0); }
+			img::-moz-selection, iframe::-moz-selection { background:rgba(0,0,0,0); }
+			
+			.strikethrough { text-decoration:line-through; } 
+			.br:before { content:"\A"; white-space:pre; }
+			
+			.condensed {
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			#container {
+				position:relative;
+				width:86vw;
+				min-height:100%;
+				max-width:1921px;
+				margin:0 auto 0 auto;
+				padding:2px 0 48px 0;
+			}
+			
+			h1, h2, h3, h4, p, ul {
+				margin-top:17px;
+				margin-bottom:-7px;
+			}
+			
+			h1, h2, h3, h4 {
+				font-weight:600;
+			}
+			
+			h1 {
+				font-size:22px;
+				line-height:32px;
+				text-align:justify;
+				text-align-last:left;
+				word-wrap: break-word;
+				word-break:break-all;
+			}
+			
+			h2 {
+				font-size:18px;
+				line-height:28px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h3 {
+				font-size:16px;
+				line-height:26px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h4, p, li {
+				font-size:14px;
+				line-height:24px;
+			}
+			
+			li {
+				margin-left:1.5em;
+			}
+			
+			p {
+				font-weight:normal;
+				text-align:left;
+				word-wrap: break-word;
+				word-break: break-strict;
+			}
+			
+			#container > h1:last-child,
+			#container > h2:last-child,
+			#container > h3:last-child,
+			#container > p:last-child {
+				margin-bottom:0px;
+			}
+			
+			img, pre, table, video, audio { margin-top:24px; }
+			
+			a {
+				color:#00F;
+				text-decoration:none;
+			}
+			
+			pre {
+				font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+				font-size:13px;
+				line-height:20px;
+				border-radius:2px;
+				padding:12px 16px;
+				background-color:#336;
+				color:#EEE;
+				tab-size:2;
+				white-space:pre;
+				white-space:pre-wrap;
+				white-space:-pre-wrap;
+				white-space:-o-pre-wrap;
+				white-space:-moz-pre-wrap;
+				white-space:-hp-pre-wrap;
+				word-wrap:break-word;
+				word-break:break-all;
+				box-sizing: border-box;
+			}
+			
+			img {
+				display:block;
+				width:auto;
+				max-width:100%;
+				background:#FAFAFA;
+				vertical-align:top;
+			}
+			
+			p.required:after {
+				content:''; 
+				height: 6px; 
+				width: 6px; 
+				display:inline-block;
+				border-radius: 50%;
+				background:#F44;
+				vertical-align:top;
+				margin-left:4px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<script>
+			
+			// https://github.com/KoryNunn/crel/blob/master/crel.min.js
+			(e=>{const t="function",n="isNode",o=(e,t)=>typeof e===t,r=(e,t)=>{null!==t&&(Array.isArray(t)?t.map(t=>r(e,t)):(i[n](t)||(t=document.createTextNode(t)),e.appendChild(t)))};function i(e,a){let d,f,l=arguments,c=1;if(e=i.isElement(e)?e:document.createElement(e),o(a,"object")&&!i[n](a)&&!Array.isArray(a))for(d in c++,a)f=a[d],o(d=i.attrMap[d]||d,t)?d(e,f):o(f,t)?e[d]=f:e.setAttribute(d,f);for(;c<l.length;c++)r(e,l[c]);return e}i.attrMap={},i.isElement=(e=>e instanceof Element),i[n]=(e=>e instanceof Node),i.proxy=new Proxy(i,{get:(e,t)=>(!(t in i)&&(i[t]=i.bind(null,t)),i[t])}),e(i,t)})((e,t)=>{"object"==typeof exports?module.exports=e:typeof define===t&&define.amd?define(()=>e):this.crel=e});
+				
+			const link = (url,text)=>{
+				return crel("a",{"href":url,"target":"_blank",rel:"noopener noreferrer"},text);
+			};
+				
+			const br = ()=>{
+				return crel("br");
+			};
+				
+			const bold = (text)=>{
+				return crel("span",{"style":"font-weight:bold"},text);
+			};
+				
+			crel(document.body,crel("div",{"id":"container"},
+				crel("h1",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect?language=objc","FxTileableEffect")),
+				crel("p","タイルと呼ばれる、プラグインの出力の特定の部分のみをレンダリングするための、プラグインの指定イニシャライザ。"),
+				crel("pre","@protocol FxTileableEffect"),
+				crel("h2","Parameters"),
+					crel("p",bold("apiManager"),br(),"プラグインがホスト アプリケーションと通信するために必要なさまざまな API オブジェクトを取得するオブジェクト。"),
+				crel("h2","Overview"),
+					crel("p","このプロトコルを使用すると、プラグインは出力の選択部分またはタイルをレンダリングして、効率を高め、ホストのプロセスの外で動作させることができます。",br(),
+						"プラグインは、後続の呼び出しで使用するために、apiManagerオブジェクトへの弱い参照を保存する必要があります。",br(),
+						"プラグインはそのプロパティとインスタンス変数を初期化し、自分自身へのポインターを返します。",br(),
+						"初期化の一部が回復不可能な方法で失敗した場合、このメソッドはnilを返します。"),
+				crel("h2","Topics"),
+				crel("h3","Setting Up Your Plug-in / プラグインのセットアップ"),
+				crel("p",{"class":"required"},link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378637-initwithapimanager?language=objc","initWithAPIManager:"),br(),
+					"プラグインのAPIマネージャーを初期化します。"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378636-finishinitialsetup?language=objc","finishInitialSetup:"),br(),
+					"初期セットアップを終了し、プラグインの最初のアプリケーションで1回だけ呼び出され、セットアップを完了するために必要な他の処理を実行できるようになります。"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3684465-plugininstanceaddedtodocument?language=objc","pluginInstanceAddedToDocument:"),br(),
+					"プラグインがユーザーのドキュメントの一部になったときに通知します。"),
+				crel("p",{"class":"required"},link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378640-properties?language=objc","properties:error:"),br(),
+					"ガンマ補正された色空間かリニア色空間でレンダリングするかなど、プラグインが何を必要としサポートしているかをホストアプリケーションに伝えます。"),
+					
+				crel("h3","Adding and Setting Parameters / パラメータの追加と設定"),
+				crel("p",{"class":"required"},link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378633-addparameterswitherror?language=objc","addParametersWithError:"),br(),
+					"プラグインに必要なパラメータをホストアプリケーションに伝えます。"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378634-classforcustomparameterid?language=objc","classForCustomParameterID:"),br(),
+					"指定されたIDを持つカスタムパラメーターに含まれるオブジェクトのクラスclassを返します。"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3725625-classesforcustomparameterid?language=objc","classesForCustomParameterID:"),br(),
+					"指定されたIDを持つカスタムパラメーターに含まれるオブジェクトのclassesを返します。"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378638-parameterchanged?language=objc","parameterChanged:atTime:error:"),br(),
+					"ホストがパラメータの変更を検出したときに実行します。"),
+				
+				crel("h3","Determining Input and Output Bounds / 入力と出力の領域の決定"),
+				crel("p",{"class":"required"},link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378643-sourcetilerect?language=objc"," sourceTileRect:sourceImageIndex:sourceImages:destinationTileRect:destinationImage:pluginState:atTime:error:"),br(),
+					"指定された画像入力とレンダリングされる出力タイルに必要な入力の矩形を計算します。"),
+				crel("p",{"class":"required"},link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378635-destinationimagerect?language=objc","destinationImageRect:sourceImages:destinationImage:pluginState:atTime:error:"),br(),
+					"指定されたレンダリング時間におけるさまざまな入力およびプラグインの状態によって決定される出力イメージの領域を計算します。"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/3798100-fxrectsareequal?language=objc","FxRectsAreEqual"),br(),
+					"2つの矩形構造を比較し、それらが等しいかどうかを判断します。"),
+				
+				crel("h3","Rendering An Output / 出力のレンダリング"),
+				crel("p",{"class":"required"},link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378639-pluginstate?language=objc","pluginState:atTime:quality:error:"),br(),
+					"プラグインのパラメータ値を取得し、それらの値から必要な計算を実行し、後でレンダリングで使用できるように結果をパッケージ化します。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378642-scheduleinputs?language=objc","scheduleInputs:withPluginState:atTime:error:"),br(),
+					"プラグインが与えられたレンダリング時間でレンダリングするために必要な、指定された入力ソースからのフレーム数をホストアプリケーションに伝えます。"),
+				
+				crel("p",{"class":"required"},link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378641-renderdestinationimage?language=objc","renderDestinationImage:sourceImages:pluginState:atTime:error:"),br(),
+					"ホストがプラグインに指定された出力画像タイルのレンダリングを実行することを要求するリクエストを送信します。"),
+				
+				crel("h3","Data Types / データ型"),
+				crel("p","FxPlug SDK で定義されている、クラス固有ではないデータ型。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxdepth?language=objc","FxDepth"),br(),
+					"ビット深度を識別するために使用される定数。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxfield?language=objc","FxField"),br(),
+					"フィールドを識別するために使用される定数。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxfieldorder?language=objc","FxFieldOrder"),br(),
+					"画像ストリームのフィールド順序を識別するために使用される定数。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxpoint2d?language=objc","FxPoint2D"),br(),
+					"2Dの点。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxpoint3d?language=objc","FxPoint3D"),br(),
+					"3Dの点。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxquality?language=objc","FxQuality"),br(),
+					"レンダリングの品質を識別するための定数。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxrect?language=objc","FxRect"),br(),
+					"整数の座標を持つ2の矩形。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxsize?language=objc","FxSize"),br(),
+					"幅と高さの値を格納する構造体。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxdrawingcoordinates?language=objc","FxDrawingCoordinates"),br(),
+					"座標空間を識別するための定数。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxerror?language=objc","FxError"),br(),
+					"プラグインのホストアプリケーションから返されるエラー。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fximagecolorinfo?language=objc","FxImageColorInfo"),br(),
+					"FxImage インスタンスのいくつかのカラープロパティを識別します。",br(),"これには、色空間、ガンマレベル、およびYCbCr画像の場合はRGBに変換するためのカラーマトリックスマトリックスが含まれます。"),
+				
+				
+				crel("h3","Constants / 定数"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/kfxrect_empty?language=objc","kFxRect_Empty"),br(),
+					"空の矩形。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/kfxrect_infinite?language=objc","kFxRect_Infinite"),br(),
+					"無限の矩形。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/2625140-fxquality?language=objc","FxQuality"),br(),
+					"レンダリング品質。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/2625143-fxdepth?language=objc","FxDepth"),br(),
+					"ビット深度。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/2625149-fxfieldorder?language=objc","FxFieldOrder"),br(),
+					"フィールドの順序。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/2625151-fxfield?language=objc","FxField"),br(),
+					"フィールド。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxplugerrordomain?language=objc","FxPlugErrorDomain"),br(),
+					"FxPlug関連エラーのエラードメイン。")
+				
+				
+				
+			));
+				
+		</script>
+	</body>
+</html>

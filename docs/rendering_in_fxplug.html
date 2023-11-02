@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex,nofollow">
+		<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+		<title>Rendering in FxPlug</title>
+		<link rel="icon" href="data:;base64,=">
+		<style>
+			
+			* {
+				margin:0;
+				padding:0;
+				text-rendering:optimizeSpeed;
+				letter-spacing:1.5px;
+				font-kerning:none;
+				outline : none;
+			}
+			
+			body {
+				-webkit-text-size-adjust:100%;
+				font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+				overflow-x:hidden;
+				color:#242424;
+				font-weight:normal;
+				font-size:14px;
+				line-height:26px;
+				font-feature-settings:"palt";
+				word-wrap: break-word;
+				word-break:break-word;
+				text-align:left;
+				-webkit-tap-highlight-color: transparent;
+				background:#FFF;
+			}
+			
+			::selection { background:rgba(128,128,128,0.25); }
+			::-moz-selection { background:rgba(128,128,128,0.25); }
+			pre::selection { background:rgba(255,255,255,0.25); }
+			pre::-moz-selection { background:rgba(255,255,255,0.25); }
+			img::selection, iframe::selection { background:rgba(0,0,0,0); }
+			img::-moz-selection, iframe::-moz-selection { background:rgba(0,0,0,0); }
+			
+			.strikethrough { text-decoration:line-through; } 
+			.br:before { content:"\A"; white-space:pre; }
+			
+			.condensed {
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			#container {
+				position:relative;
+				width:86vw;
+				min-height:100%;
+				max-width:1921px;
+				margin:0 auto 0 auto;
+				padding:2px 0 48px 0;
+			}
+			
+			h1, h2, h3, h4, p, ul {
+				margin-top:17px;
+				margin-bottom:-7px;
+			}
+			
+			h1, h2, h3, h4 {
+				font-weight:600;
+			}
+			
+			h1 {
+				font-size:22px;
+				line-height:32px;
+				text-align:justify;
+				text-align-last:left;
+				word-wrap: break-word;
+				word-break:break-all;
+			}
+			
+			h2 {
+				font-size:18px;
+				line-height:28px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h3 {
+				font-size:16px;
+				line-height:26px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h4, p, li {
+				font-size:14px;
+				line-height:24px;
+			}
+			
+			li {
+				margin-left:1.5em;
+			}
+			
+			p {
+				font-weight:normal;
+				text-align:left;
+				word-wrap: break-word;
+				word-break: break-strict;
+			}
+			
+			#container > h1:last-child,
+			#container > h2:last-child,
+			#container > h3:last-child,
+			#container > p:last-child {
+				margin-bottom:0px;
+			}
+			
+			img, pre, table, video, audio { margin-top:24px; }
+			
+			a {
+				color:#00F;
+				text-decoration:none;
+			}
+			
+			pre {
+				font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+				font-size:13px;
+				line-height:20px;
+				border-radius:2px;
+				padding:12px 16px;
+				background-color:#336;
+				color:#EEE;
+				tab-size:2;
+				white-space:pre;
+				white-space:pre-wrap;
+				white-space:-pre-wrap;
+				white-space:-o-pre-wrap;
+				white-space:-moz-pre-wrap;
+				white-space:-hp-pre-wrap;
+				word-wrap:break-word;
+				word-break:break-all;
+				box-sizing: border-box;
+			}
+			
+			img {
+				display:block;
+				width:auto;
+				max-width:100%;
+				background:#FAFAFA;
+				vertical-align:top;
+			}
+			
+			p.required:after {
+				content:''; 
+				height: 6px; 
+				width: 6px; 
+				display:inline-block;
+				border-radius: 50%;
+				background:#F44;
+				vertical-align:top;
+				margin-left:4px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<script>
+			
+			// https://github.com/KoryNunn/crel/blob/master/crel.min.js
+			(e=>{const t="function",n="isNode",o=(e,t)=>typeof e===t,r=(e,t)=>{null!==t&&(Array.isArray(t)?t.map(t=>r(e,t)):(i[n](t)||(t=document.createTextNode(t)),e.appendChild(t)))};function i(e,a){let d,f,l=arguments,c=1;if(e=i.isElement(e)?e:document.createElement(e),o(a,"object")&&!i[n](a)&&!Array.isArray(a))for(d in c++,a)f=a[d],o(d=i.attrMap[d]||d,t)?d(e,f):o(f,t)?e[d]=f:e.setAttribute(d,f);for(;c<l.length;c++)r(e,l[c]);return e}i.attrMap={},i.isElement=(e=>e instanceof Element),i[n]=(e=>e instanceof Node),i.proxy=new Proxy(i,{get:(e,t)=>(!(t in i)&&(i[t]=i.bind(null,t)),i[t])}),e(i,t)})((e,t)=>{"object"==typeof exports?module.exports=e:typeof define===t&&define.amd?define(()=>e):this.crel=e});
+				
+			const link = (url,text)=>{
+				return crel("a",{"href":url,"target":"_blank",rel:"noopener noreferrer"},text);
+			};
+				
+			const br = ()=>{
+				return crel("br");
+			};
+				
+			const bold = (text)=>{
+				return crel("span",{"style":"font-weight:bold"},text);
+			};
+				
+			crel(document.body,crel("div",{"id":"container"},
+				crel("h1",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/rendering_in_fxplug?language=objc","Rendering in FxPlug")),
+				crel("p","Metalまたは他のフレームワークを使用して、FxPlugプラグインでイメージをレンダリングします。"),
+				crel("h2","Overview"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fximagetile?language=objc","FxImageTile"),"は、領域、ピクセル変換、フィールドとフィールドの順序、画像の原点など、以前にFxRenderInfoとFxImageにあったフレーム情報を組み合わせて改善するFxPlug 4の新しいクラスです。",br(),"受信したイメージは",link("https://developer.apple.com/documentation/iosurface?language=objc","IOSurface"),"として表示されるようになりました。",br(),"これは、FxPlug 4に対する最大の変更点の1つです。"),
+				crel("p","レンダリングには常に次の 4 つの手順が含まれます。"),
+				
+				crel("p","1. パラメーター値を確認し、計算を行うことで、プラグインがレンダリングする必要がある状態を収集します。",br(),link("https://developer.apple.com/documentation/professional_video_applications/fxplug/communicating_with_the_plug-in_state?language=objc","Communicating with the plug-in state"),"では、プラグインがレンダリングするために必要な情報を準備する方法について説明します。"),
+				crel("p","2. 入力領域が与えられた場合に、出力領域が何になるかをホストアプリケーションに伝えます。",br(),link("https://developer.apple.com/documentation/professional_video_applications/fxplug/working_with_tiled_images?language=objc#3375071","Set the destination rectangle bounds"),"を参照してください。"),
+				crel("p","3. ホストが要求する出力のタイルごとに、入力のどのタイルをレンダリングする必要があるかをホストに指示します。",br(),link("https://developer.apple.com/documentation/professional_video_applications/fxplug/working_with_tiled_images?language=objc","Working with tiled images"),"では、入力と出力の領域を設定する方法について説明します。"),
+				crel("p","4. 各出力タイルを描画します。",br(),link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378641-renderdestinationimage?language=objc","renderDestinationImage:sourceImages:pluginState:atTime:error:"),"を参照してください。"),
+				
+				crel("p","レンダリング時に、プラグインには出力用の",link("https://developer.apple.com/documentation/professional_video_applications/fximagetile?language=objc","FxImageTile"),"が与えられます。",br(),
+					"これを使用して、プラグインのレンダリングが終了したときにテクスチャをホストアプリケーションに返します。",br(),
+					"OutputImageには、テクスチャがどのグラフィックスカードに搭載されているかを識別する",link("https://developer.apple.com/documentation/professional_video_applications/fximagetile/3378481-deviceregistryid?language=objc","deviceRegistryID"),"が含まれています。",br(),
+					"これは読み取り専用のプロパティです。"),
+				
+				crel("p","deviceRegistryID を使用する方法の例については、FxDynamicRegistrationの例を参照してください。",br(),
+					"具体的には、renderWithBrightnessの PAEMTLBrightnessRenderer.mを見てください。",br(),
+					"ここでは、OutputTextureがOutputImageの",link("https://developer.apple.com/documentation/professional_video_applications/fximagetile/3378481-deviceregistryid?language=objc","deviceRegistryID"),"値を使用してMetalの状態と入力および出力テクスチャを作成します。"),
+				
+				crel("h4","note"),
+				crel("p","IOSurfaceで",link("https://developer.apple.com/documentation/iosurface/kiosurfacepixelsizecastingallowed?language=objc","kIOSurfacePixelSizeCastingAllowed"),"を設定すると、プラグインのパフォーマンスが低下する可能性があるため、通常、その使用は推奨されません。",br(),
+					"このフラグを設定すると、ピクセルの位置がVRAM内で順序どおりに保たれるようになり、プラグインでカスタムピクセルパッキングを使用できるようになります。",br(),
+					"このフラグが必要な場合、例えば4:4:4フォーマットから4:2:2フォーマットに変換するとき、ホストアプリは入力と出力のIOSurfaceのコピーを提供するので、プラグインで特定のピクセルフォーマットをアンパックし、同様に出力",link("https://developer.apple.com/documentation/iosurface?language=objc","IOSurface"),"に特定のピクセルフォーマットをパックすることができます。")
+			));
+				
+		</script>
+	</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex,nofollow">
+		<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+		<title>Scheduling media in plug-ins</title>
+		<link rel="icon" href="data:;base64,=">
+		<style>
+			
+			* {
+				margin:0;
+				padding:0;
+				text-rendering:optimizeSpeed;
+				letter-spacing:1.5px;
+				font-kerning:none;
+				outline : none;
+			}
+			
+			body {
+				-webkit-text-size-adjust:100%;
+				font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+				overflow-x:hidden;
+				color:#242424;
+				font-weight:normal;
+				font-size:14px;
+				line-height:26px;
+				font-feature-settings:"palt";
+				word-wrap: break-word;
+				word-break:break-word;
+				text-align:left;
+				-webkit-tap-highlight-color: transparent;
+				background:#FFF;
+			}
+			
+			::selection { background:rgba(128,128,128,0.25); }
+			::-moz-selection { background:rgba(128,128,128,0.25); }
+			pre::selection { background:rgba(255,255,255,0.25); }
+			pre::-moz-selection { background:rgba(255,255,255,0.25); }
+			img::selection, iframe::selection { background:rgba(0,0,0,0); }
+			img::-moz-selection, iframe::-moz-selection { background:rgba(0,0,0,0); }
+			
+			.strikethrough { text-decoration:line-through; } 
+			.br:before { content:"\A"; white-space:pre; }
+			
+			.condensed {
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			#container {
+				position:relative;
+				width:86vw;
+				min-height:100%;
+				max-width:1921px;
+				margin:0 auto 0 auto;
+				padding:2px 0 48px 0;
+			}
+			
+			h1, h2, h3, h4, p, ul {
+				margin-top:17px;
+				margin-bottom:-7px;
+			}
+			
+			h1, h2, h3, h4 {
+				font-weight:600;
+			}
+			
+			h1 {
+				font-size:22px;
+				line-height:32px;
+				text-align:justify;
+				text-align-last:left;
+				word-wrap: break-word;
+				word-break:break-all;
+			}
+			
+			h2 {
+				font-size:18px;
+				line-height:28px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h3 {
+				font-size:16px;
+				line-height:26px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h4, p, li {
+				font-size:14px;
+				line-height:24px;
+			}
+			
+			li {
+				margin-left:1.5em;
+			}
+			
+			p {
+				font-weight:normal;
+				text-align:left;
+				word-wrap: break-word;
+				word-break: break-strict;
+			}
+			
+			#container > h1:last-child,
+			#container > h2:last-child,
+			#container > h3:last-child,
+			#container > p:last-child {
+				margin-bottom:0px;
+			}
+			
+			img, pre, table, video, audio { margin-top:24px; }
+			
+			a {
+				color:#00F;
+				text-decoration:none;
+			}
+			
+			pre {
+				font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+				font-size:13px;
+				line-height:20px;
+				border-radius:2px;
+				padding:12px 16px;
+				background-color:#336;
+				color:#EEE;
+				tab-size:2;
+				white-space:pre;
+				white-space:pre-wrap;
+				white-space:-pre-wrap;
+				white-space:-o-pre-wrap;
+				white-space:-moz-pre-wrap;
+				white-space:-hp-pre-wrap;
+				word-wrap:break-word;
+				word-break:break-all;
+				box-sizing: border-box;
+			}
+			
+			img {
+				display:block;
+				width:auto;
+				max-width:100%;
+				background:#FAFAFA;
+				vertical-align:top;
+			}
+			
+			p.required:after {
+				content:''; 
+				height: 6px; 
+				width: 6px; 
+				display:inline-block;
+				border-radius: 50%;
+				background:#F44;
+				vertical-align:top;
+				margin-left:4px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<script>
+			
+			// https://github.com/KoryNunn/crel/blob/master/crel.min.js
+			(e=>{const t="function",n="isNode",o=(e,t)=>typeof e===t,r=(e,t)=>{null!==t&&(Array.isArray(t)?t.map(t=>r(e,t)):(i[n](t)||(t=document.createTextNode(t)),e.appendChild(t)))};function i(e,a){let d,f,l=arguments,c=1;if(e=i.isElement(e)?e:document.createElement(e),o(a,"object")&&!i[n](a)&&!Array.isArray(a))for(d in c++,a)f=a[d],o(d=i.attrMap[d]||d,t)?d(e,f):o(f,t)?e[d]=f:e.setAttribute(d,f);for(;c<l.length;c++)r(e,l[c]);return e}i.attrMap={},i.isElement=(e=>e instanceof Element),i[n]=(e=>e instanceof Node),i.proxy=new Proxy(i,{get:(e,t)=>(!(t in i)&&(i[t]=i.bind(null,t)),i[t])}),e(i,t)})((e,t)=>{"object"==typeof exports?module.exports=e:typeof define===t&&define.amd?define(()=>e):this.crel=e});
+				
+			const link = (url,text)=>{
+				return crel("a",{"href":url,"target":"_blank",rel:"noopener noreferrer"},text);
+			};
+				
+			const br = ()=>{
+				return crel("br");
+			};
+				
+			const bold = (text)=>{
+				return crel("span",{"style":"font-weight:bold"},text);
+			};
+				
+			crel(document.body,crel("div",{"id":"container"},
+				crel("h1",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/scheduling_media_in_plug-ins?language=objc","Scheduling media in plug-ins")),
+				crel("p","FxPlugのスケジューリングAPIを使用して、さまざまな時間からフレームを取得します。"),
+				crel("h2","Overview"),
+				crel("p","FxPlug SDKは、プラグインに現在時刻を取得してメディアをスケジュールする方法を提供する、いくつかのタイミングおよびスケジューリングメソッドを提供します。"),
+	
+				crel("h2","Get the current time / 現在時刻を取得する"),
+				crel("p","画面上のコントロールまたはカスタムパラメータービューのイベントで現在時間が必要な場合は、FxCustomParameterAPIプロトコルの",link("https://developer.apple.com/documentation/professional_video_applications/fxcustomparameteractionapi_v4/3378462-currenttime?language=objc","currentTime"),"メソッドを使用して合理的な時間を取得します。"),
+				
+				crel("h4","Important"),
+				crel("p","すべてのFxPlug 4 APIは",link("https://developer.apple.com/documentation/coremedia/cmtime-u58?language=objc","CMTime"),"を使用して時間を表します。",br(),"FxPlugの以前のバージョンに慣れている場合は、FxTimeからの移行に注目してください。",br(),"詳細については",link("https://developer.apple.com/documentation/coremedia/cmtime-u58?language=objc","CMTime"),"を参照してください。"),
+				
+				crel("h2","Schedule media"),
+				crel("p","スケジューリング API を使用すると、ホストアプリケーションは画像ウェルに含まれるメディアをスケジュールできます。",br(),"FxPlug 4の新しい方法である次の方法を考えてみましょう。"),
+				
+				crel("pre",`- (BOOL)scheduleInputs:(NSArray<FxImageTileRequest*>* _Nullable *_Nullable)inputImageRequests withPluginState:(NSData* _Nullable)pluginState atTime:(CMTime)renderTime error:(NSError**)error;`),
+				
+				crel("p","このメソッドは、プラグインが指定されたレンダリング時間でレンダリングするために必要な指定された入力ソースからのフレーム数をホストアプリケーションに伝えます。",br(),link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378642-scheduleinputs?language=objc","scheduleInputs:withPluginState:atTime:error:"),"を画像で使用する方法の例については、FxPictureInPictureプロジェクトのPictureInPicturePlugIn.mを参照してください。")
+	
+			));
+				
+		</script>
+	</body>
+</html>

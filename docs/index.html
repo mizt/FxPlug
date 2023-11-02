@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex,nofollow">
+		<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+		<title>Building an FxPlug plug-in manually</title>
+		<link rel="icon" href="data:;base64,=">
+		<style>
+			
+			* {
+				margin:0;
+				padding:0;
+				text-rendering:optimizeSpeed;
+				letter-spacing:1.5px;
+				font-kerning:none;
+				outline : none;
+			}
+			
+			body {
+				-webkit-text-size-adjust:100%;
+				font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+				overflow-x:hidden;
+				color:#242424;
+				font-weight:normal;
+				font-size:14px;
+				line-height:26px;
+				font-feature-settings:"palt";
+				word-wrap: break-word;
+				word-break:break-word;
+				text-align:left;
+				-webkit-tap-highlight-color: transparent;
+				background:#FFF;
+			}
+			
+			::selection { background:rgba(128,128,128,0.25); }
+			::-moz-selection { background:rgba(128,128,128,0.25); }
+			pre::selection { background:rgba(255,255,255,0.25); }
+			pre::-moz-selection { background:rgba(255,255,255,0.25); }
+			img::selection, iframe::selection { background:rgba(0,0,0,0); }
+			img::-moz-selection, iframe::-moz-selection { background:rgba(0,0,0,0); }
+			
+			.strikethrough { text-decoration:line-through; } 
+			.br:before { content:"\A"; white-space:pre; }
+			
+			.condensed {
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			#container {
+				position:relative;
+				width:86vw;
+				min-height:100%;
+				max-width:1921px;
+				margin:0 auto 0 auto;
+				padding:2px 0 48px 0;
+			}
+			
+			h1, h2, h3, h4, p, ul {
+				margin-top:17px;
+				margin-bottom:-7px;
+			}
+			
+			h1, h2, h3, h4 {
+				font-weight:600;
+			}
+			
+			h1 {
+				font-size:22px;
+				line-height:32px;
+				text-align:justify;
+				text-align-last:left;
+				word-wrap: break-word;
+				word-break:break-all;
+			}
+			
+			h2 {
+				font-size:18px;
+				line-height:28px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h3 {
+				font-size:16px;
+				line-height:26px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h4, p, li {
+				font-size:14px;
+				line-height:24px;
+			}
+			
+			li {
+				margin-left:1.5em;
+			}
+			
+			p {
+				font-weight:normal;
+				text-align:left;
+				word-wrap: break-word;
+				word-break: break-strict;
+			}
+			
+			#container > h1:last-child,
+			#container > h2:last-child,
+			#container > h3:last-child,
+			#container > p:last-child {
+				margin-bottom:0px;
+			}
+			
+			img, pre, table, video, audio { margin-top:24px; }
+			
+			a {
+				color:#00F;
+				text-decoration:none;
+			}
+			
+			pre {
+				font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+				font-size:13px;
+				line-height:20px;
+				border-radius:2px;
+				padding:12px 16px;
+				background-color:#336;
+				color:#EEE;
+				tab-size:2;
+				white-space:pre;
+				white-space:pre-wrap;
+				white-space:-pre-wrap;
+				white-space:-o-pre-wrap;
+				white-space:-moz-pre-wrap;
+				white-space:-hp-pre-wrap;
+				word-wrap:break-word;
+				word-break:break-all;
+				box-sizing: border-box;
+			}
+			
+			img {
+				display:block;
+				width:auto;
+				max-width:100%;
+				background:#FAFAFA;
+				vertical-align:top;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<script>
+			
+			// https://github.com/KoryNunn/crel/blob/master/crel.min.js
+			(e=>{const t="function",n="isNode",o=(e,t)=>typeof e===t,r=(e,t)=>{null!==t&&(Array.isArray(t)?t.map(t=>r(e,t)):(i[n](t)||(t=document.createTextNode(t)),e.appendChild(t)))};function i(e,a){let d,f,l=arguments,c=1;if(e=i.isElement(e)?e:document.createElement(e),o(a,"object")&&!i[n](a)&&!Array.isArray(a))for(d in c++,a)f=a[d],o(d=i.attrMap[d]||d,t)?d(e,f):o(f,t)?e[d]=f:e.setAttribute(d,f);for(;c<l.length;c++)r(e,l[c]);return e}i.attrMap={},i.isElement=(e=>e instanceof Element),i[n]=(e=>e instanceof Node),i.proxy=new Proxy(i,{get:(e,t)=>(!(t in i)&&(i[t]=i.bind(null,t)),i[t])}),e(i,t)})((e,t)=>{"object"==typeof exports?module.exports=e:typeof define===t&&define.amd?define(()=>e):this.crel=e});
+				
+			const link = (url,text)=>{
+				return crel("a",{"href":url,"target":"_blank",rel:"noopener noreferrer"},text);
+			};
+				
+			const br = ()=>{
+				return crel("br");
+			};
+				
+			crel(document.body,crel("div",{"id":"container"},
+				crel("h1",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/building_an_fxplug_plug-in_manually?language=objc","Building an FxPlug plug-in manually")),
+				crel("p","Create your own plug-in in Xcode."),				
+				crel("h2","Overview"),
+				crel("p","すべてのFxPlugプラグインはアプリケーションバンドル内に含まれており、XPCサービスを使用してホストアプリケーション、Final Cut ProおよびMotionと通信します。",br(),"ほとんどの場合、FxPlug SDKとともにインストールされるXcodeテンプレートをFxPlugプラグインのベースとして使用できます。（",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/building_an_fxplug_plug-in_from_an_xcode_template?language=objc","Building an FxPlug plug-in from an Xcode template"),"を参照）",br(),"ただし、特に複雑なプラグインを作成している場合 (または、舞台裏の詳細を知りたい場合) は、この記事が最適です。"),
+				crel("p","Motionで検出可能で、特定のレンダリング目標に合わせて開発できる独自のFxPlugプラグインを作成できます。",br(),"まず、プラグインの構造を作成し、プラグインを検出可能にして、プロジェクトをビルドして実行してエラーをチェックします。",br(),"次に、プラグインクラスを作成し、ホスト APIマネージャーをキャッシュし、プロパティディクショナリを定義します。",br(),"次に、プラグインのレンダリング方法を指定し、プラグインの状態を確立するために必要なメソッドを実装します。"),
+				crel("h4","Note"),
+				crel("p","このドキュメントでは、FxPlug 4を使用してプラグインを作成する方法について説明します。FxPlug 3は、Final Cut ProおよびMotionではサポートされていません。",br(),"詳細については、",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/migrating_fxplug_3_plug-ins_to_fxplug_4?language=objc","Migrating FxPlug 3 plug-ins to FxPlug 4"),"を参照してください。"),
+				crel("h2","Build the structure for your plug-in"),
+				crel("p","プラグインの構造を構築するには、次の手順に従います。"),
+				crel("p","1. 空のアプリを作成します。",br(),"Xcodeを起動し、新しいプロジェクトを作成します。 ",br(),"macOSを選択すると、適切な macOSテンプレートが表示されます。",br(),"次に、アプリテンプレートを選択し、Nextをクリックします。",br(),"アプリの製品名としてFxPlugBrightnessと入力します。",br(),"この例では、言語としてObjective-Cまたは Swiftを選択し、ユーザーインターフェイスとしてストーリーボードの代わりにXIBを選択します。 ",br(),"Unit TestsとInclude UI Testsの選択を解除します。",br(),"Nextをクリックします。",br(),"プロジェクトの場所を指定し、Createをクリックします。"),
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/77608935fc/rendered2x-1639094392.png"}),
+				crel("h4","Note"),
+				crel("p","SwiftでFxPlug 4プラグインを作成することもでき、プラグインアプリケーションバンドルは Storyboardsで作成されたUIを表示できます。"),				
+				crel("p","2. Xcode エディターのツールバーで、Build and runボタンをクリックします。",br(),"ビルドが正常に完了すると、一般的なmacOSアプリケーションが起動し、空のデフォルトウィンドウが表示されます。（ウィンドウを選択すると、メニュー バーにアプリの名前 FxPlugBrightnessが表示されます）",br(),"アプリを終了します。"),
+				crel("p","3. 新しいアプリ内に XPC サービスを追加します。",br(),"Xcodeで、Show projects and targets lisボタンをクリックして、サイドバーでアプリのプロジェクトとビルドターゲットのリストを切り替えます。",br(),"Targets領域で、アプリを選択します。（まだ選択されていない場合）",br(),"領域の下部にあるプラス記号(+)をクリックし、Framework & LibraryセクションからXPCサービスを選択し、Nextをクリックします。",br(),"XPCサービスにFxBrightnessXPCなどの名前を付けます。",br(),"これは、ホストアプリケーションが検出プロセスで発生した問題を報告するために使用される名前なので、必ずメモしておいてください。 ",br(),"Embed in Applicationオプションにアプリの名前が表示されていることを確認し、Finishをクリックします"),
+				crel("p","4. FxPlugおよびPluginManagerフレームワークを追加します。",br(),
+					"XcodeプロジェクトとTargetsサイドバー領域で、追加したばかりのXPCサービスターゲットを選択します。",br(),
+					"プロジェクトのメニューバーからGeneralを選択し、FrameworksとLibrariesのセクションを見つけて、そのセクションの下部にあるプラス記号をクリックします。フレームワークのリストから FxPlug.framework を選択し、追加をクリックします。 ",br(),
+					"PluginManager.framework についても繰り返します。",br(),
+					"Add Otherをクリックして、/Library/Developer/Frameworksにインストールされているフレームワークを見つける必要がある場合があります。"),				
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/12a54bdb1b/rendered2x-1639171037.png"}),
+				crel("p","5. Copy Filesフェーズを追加します。",br(),
+					"ProjectのメニューバーからBuild Phasesを選択し、その領域の左上隅にあるプラス記号をクリックします。",br(),
+					"メニューからNew Copy Files Phaseを選択し、新しいセクションを展開します。",br(),
+					"新しいCopy Filesセクションの下部にあるプラス記号をクリックし、FxPlug.frameworkを選択して、Addをクリックします。",br(),
+					"PluginManager.frameworkについても繰り返します。",br(),
+					"PluginManager.frameworkのコピーおよびコード署名フェーズのスクリプト作成については、",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/notarizing_your_fxplug_plug-in?language=objc#3584410","Code sign embedded frameworks"),"を参照してください。"),
+				
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/727de3ef1c/rendered2x-1639091815.png"}),
+				crel("p","6. フレームワーク検索パスを追加します。",br(),
+					"Targetsnの領域でXPCサービス ターゲットを選択し、プロジェクトメニューバーからBuild Settingsを選択します。",br(),
+					"Allを選択して、利用可能なすべての設定が表示されていることを確認します。",br(),
+					"Build Settingsの領域で、Framework Search Pathsを検索します。",br(),
+					"Framework Search Pathsの項目を展開し、プラス記号をクリックして、FxPlug SDKがインストールされている場所へのパス/Library/Frameworks $(inherited)を入力します。",br(),
+					"これをデバッグとリリースの両方で実行します。"),
+				
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/5e855d087e/rendered2x-1639091820.png"}),
+				crel("p","7. 追加のSDKパスを追加します。",br(),
+					"Targetsの領域で XPCサービスターゲットが選択されたままの状態で、Additional SDKsを検索し、以下に示すようにパス/Library/Developer/SDKs/FxPlugを追加します。",br(),
+					"これをデバッグとリリースの両方で実行します。"),
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/34a80319aa/rendered2x-1639091814.png"}),				
+				crel("h2","Make your plug-in discoverable"),
+				crel("p","macOSは、PlugInKitと呼ばれるテクノロジーを使用して、システム上のプラグインを検出して登録します。",br(),
+					"ホストアプリケーションが起動すると、PluginKitはそのホストで使用できるプラグインのリストを報告します。",br(),
+					"PluginKitでプラグインを検出できるようにするには、pluginkitをWrapper Extensionにします。",br(),
+					"TargetsのリストでXPCサービスを選択し、ProjectのメニューバーからBuild Settingsを選択してから、Allを選択して使用可能な設定がすべて表示されていることを確認します。",br(),
+					"正しいセクションを見つけるには、packagingを検索すると便利です。"),
+				crel("p","次に、デフォルトのWrapper Extensionの代わりにpluginkitを入力します。"),
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/7b64918af6/rendered2x-1639091818.png"}),
+				crel("p","アプリケーションバンドルのどこにプラグインバンドルを埋め込むかをXcodeに指示します。"),
+				crel("p","1. Targetsのリストからラッパーアプリを選択します。"),
+				crel("p","2. ProjectメニューバーからBuild Phasesを選択します。",br(),
+					"Copy Filesのフェーズ項目がまだない場合は、最初にNew Build Phaseのプラス（+）ボタンをクリックして、次にNew Copy Files Phaseを選択して追加します。"),
+				crel("p","3. Copy Filesのフェーズ項目を見つけて展開し、Add Itemsのプラス（+）ボタンをクリックし、Destinationオプションで XPCサービスを選択します。",br(),
+					"たとえば、FxBrightnessXPCサービスは、埋め込まれていると次のようになります。"),
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/7044cfbf1e/rendered2x-1639091817.png"}),
+				crel("p","4. XPCサービスのInfo.plistファイルを変更して、プラグインがFxPlugプラグインとして認識されるように構成します。",br(),
+					"構成要件の完全なリストについては",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/editing_property_lists_for_fxplug_plug-ins?language=objc","Editing property Lists for FxPlug plug-ins"),"を参照してください。"),
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/9d99ff3946/rendered2x-1639171800.png"}),
+				crel("h2","Connect the host application to the plug-in"),
+				crel("p","ホストアプリケーションはプラグインへのXPC接続を確立する必要があります。",br(),
+					"これを行うには、プラグインのXPCは、main.mファイル内のFxPrincipal開始メソッドを呼び出す必要があります。",br(),
+					"必ずFxPlug/FxPlugSDK.hをインポートしてください。"),
+				crel("p","XcodeナビゲーターでXPCサービス項目を展開し、次のコードをmain.mファイルに追加します。"),
+				crel("pre",`#import <FxPlug/FxPlugSDK.h>
+int main(int argc, const char *argv[]) {
+	[FxPrincipal startServicePrincipal];
+}`),
+				crel("h2","Build and run your project"),
+				crel("p","Info.plistの編集が完了したら、プロジェクトをビルドして実行します。",br(),
+					"エラーなしでコンパイルされ、複雑な問題なく起動するはずです。",br(),
+					"Motionを起動すると、filterリストまたはgeneratorリストにプラグインが表示されます。（FxPlugプラグインのプロパティリストの編集時に指定したように、protocolNamesのエントリがFxFilterかFxGeneratorかによって異なります）"),
+				crel("p","PlugInKitに問い合わせて、プラグインが検出されたことを確認します。",br(),
+					"ターミナルで次のように入力します。"),
+				crel("pre",`pluginkit -m -p FxPlug`),
+				crel("p","ターミナルには、システム上のすべてのFxPlugプラグインのリストが表示されます。",br(),
+					"このリストが非常に長い場合は、次のようにターミナルの出力でプラグインの特定の名前を検索できます。"),
+				crel("pre",`pluginkit -m -p FxPlug | grep "FxPlugBrightness"`),
+				crel("p","ターミナルにFxPlugBrightness(1.0)が表示されるようになりました。",br(),
+					"検出されたプラグインに関する詳細情報が必要な場合は、次のように詳細オプションを追加します。"),
+				crel("pre",`pluginkit -mv -p FxPlug | grep "FxPlugBrightness"`),
+				crel("p","ターミナルには次のように表示されます。"),
+				crel("pre",`FxPlugBrightness(1.0)DE175335-4588-4C40-84D6-BCD4F0BCAC44 2019-07-09 15:41:18 +0000 /Users/your_username/Desktop/FxPlugBrightness/Build/Products/Debug/ FxPlugBrightness.app/Contents/PlugIns/FxPlugBrightness.pluginkit`),
+				crel("h4","Note"),
+				crel("p","プラグインは検出されましたが、まだ使用する準備ができていません。",br(),
+					"ライブラリ内のプラグインを使用すると、予期しない結果が得られます。"),
+				crel("h2","Create your plug-in class"),
+				crel("p","ホストアプリケーションはプラグインをインスタンス化するときに、XPCサービスの Info.plistファイル内でclassName項目を検索します。",br(),
+					"このクラスはプラグインコードを記述する場所であり",link("./fxtileableeffect.html","FxTileableEffect"),"プロトコルに準拠していることを確認します。（詳細については",link("./rendering_in_fxplug.html","Rendering in FxPlug"),"を参照してください）"),
+				crel("p","1. プロジェクトにクラスを追加するには、新しいファイルを作成します（File > New > File...）。",br(),
+					"Info.plistに入力したclassNameを使用します。",br(),
+					"この例ではFxPlugBrightnessFilterという名前にします。",br(),
+					"新しいクラスのターゲットメンバーシップをXPCサービスに設定します。"),
+				crel("p","2. FxPlugBrightnessFilterのヘッダーファイルを開きます。"),
+				crel("p","3. FxPlugSDK.hをインポートし、クラスがFxTileableEffectプロトコルに準拠していることを示します。（作業中に",link("./fxtileableeffect.html","FxTileableEffect"),"を参照すると役立つ場合があります）"),
+				crel("pre",`#import <Foundation/Foundation.h>
+#import <FxPlug/FxPlugSDK.h>
+@interface FxPlugBrightnessFilter : NSObject <FxTileableEffect> @end`),
+				crel("h2","Cache the host API manager"),
+				crel("p",link("./fxtileableeffect.html","FxTileableEffect"),"プロトコルのメソッドを追加する前に、次のコードを使用してホストAPIマネージャーをキャッシュします。",br(),"ホストAPIの役割の詳細については、",link("./using_fxplug_apis.html","Using FxPlug APIs"),"を参照してください。"),
+				crel("p","FxPlugBrightnessFilterのヘッダーファイルでAPIマネージャーを宣言します。"),
+				crel("pre",`@property (assign) id<PROAPIAccessing> apiManager; `),
+				crel("p","このイニシャライザをFxPlugBrightnessFilterの実装.mファイルで宣言します。"),
+				crel("pre",`
+- (nullable instancetype)initWithAPIManager:
+(id<PROAPIAccessing>)newApiManager;
+{ 
+	self=[super init];
+	if (self !=nil)　{
+		_apiManager = newApiManager;
+	}
+	return self;
+}`),
+				crel("h2","Define a properties dictionary"),
+				crel("p","すべてのプラグインは、出力サイズを変更できるかどうか、タイルレンダリングをサポートするかどうかを指定するキーなど、プラグインの動作方法に固有の構成値を保持するプロパティディクショナリを定義します。",br(),
+					"プラグインのプロパティディクショナリを定義するには、次のメソッドを実装します。"),
+				
+				crel("pre",`- (BOOL)properties:(NSDictionary * _Nonnull *)properties
+	error:(NSError * _Nullable *)error
+{
+	*properties = @{
+		kFxPropertyKey_ChangesOutputSize : @NO,
+		kFxPropertyKey_NeedsFullBuffer : @NO,
+		kFxPropertyKey_VariesWhenParamsAreStatic : @NO
+	};
+	return YES;
+}`),
+				crel("p","他の使用可能なキー値についてはFxBaseEffectおよび",link("./fxtileableeffect.html","FxTileableEffect"),"を参照してください。",br(),
+					"次のような多くのオプションがあります。"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/kfxpropertykey_needsfullbuffer?language=objc","kFxPropertyKey_NeedsFullBuffer"),br(),"このプラグインが処理を行うために画像全体が必要で、そのレンダリングをタイル化できないかどうかを示します。"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/kfxpropertykey_mayremaptime?language=objc","kFxPropertyKey_MayRemapTime"),br(),"プラグインが現在時刻以外の時刻から入力をサンプリングすることを示します。"),
+				crel("p","kFxPropertyKey_PreservesAlpha",br(),"このプラグインが入力画像のアルファ チャネル値をそのままにするかどうかを示します。"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/kfxpropertykey_varieswhenparamsarestatic?language=objc","kFxPropertyKey_VariesWhenParamsAreStatic"),br(),"パラメータが変更されない場合でも、このエフェクトがレンダリングを変更するかどうかを示します。"),
+				crel("h4","Note"),
+				crel("p","すべてのFxPlug 4プラグインはスレッドセーフであり",link("https://developer.apple.com/documentation/coremedia/cmtime-u58?language=objc","CMTime"),"を使用する必要があるため、プロパティキーのkFxPropertyKey_IsThreadSafeおよびkFxPropertyKey_UsesRationalTimeは、FxPlug4以降のプラグインでは無視されます。"),
+				crel("h2","Implement required and optional methods"),
+				crel("p","通常、プラグインにはパラメータスライダー、イメージウェル、カラーピッカーなどのユーザーインターフェイス要素が必要です。",br(),link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378633-addparameterswitherror?language=objc","addParametersWithError:"),"メソッドをプラグインに追加します。",br(),"パラメーター タイプとその使用例の詳細については",link("./using_fxplug_apis.html","Using FxPlug APIs"),"と",link("./adding_parameters_to_plug-ins.html","Adding parameters to plug-ins"),"を参照してください。"),
+				crel("pre",`- (BOOL)addParametersWithError:(NSError**)error;`),
+				crel("p","プラグインは、ユーザーによって行われた（プラグインのUI要素を通じて中継された）パラメーターの変更を",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378638-parameterchanged?language=objc","parameterChanged:atTime:error:"),"メソッドで処理することを選択できます。",br(),"このオプションのメソッドをプラグインに実装します。"),
+				crel("pre",`- (BOOL)parameterChanged:(UInt32)paramID
+	atTime:(CMTime)time
+	error:(NSError * _Nullable *)error;`),
+				crel("p","プラグインに必要な残りのメソッドは、プラグインがその効果をレンダリングする方法を指定します。"),
+				crel("pre",`- (BOOL)renderDestinationImage:(FxImageTile*)destinationImage
+	sourceImages:(NSArray<FxImageTile*>*)sourceImages
+	pluginState:(nullable NSData*)pluginState
+	atTime:(CMTime)renderTime
+	error:(NSError**)outError;`),
+				crel("p","また、入力と出力の矩形を設定するために、2つのメソッドを実装する必要があります。"),
+				crel("pre",`- (BOOL)sourceTileRect:(nonnull FxRect*)sourceTileRect
+	sourceImageIndex:(NSUInteger)sourceImageIndex
+	sourceImages:(NSArray<FxImageTile*>*)sourceImages
+	destinationTileRect:(FxRect)destinationTileRect
+	destinationImage:(FxImageTile*)destinationImage
+	pluginState:(nullable NSData*)pluginState
+	atTime:(CMTime)renderTime
+	error:(NSError**)outError;
+
+- (BOOL)destinationImageRect:(FxRect*)destinationImageRect
+	sourceImages:(NSArray<FxImageTile*>*)sourceImages
+	destinationImage:(FxImageTile*)destinationImage
+	pluginState:(nullable NSData*)pluginState
+	atTime:(CMTime)renderTime
+	error:(NSError**)outError;`),
+				crel("p","最後に、プラグインはホストアプリから要求されたときにplug-in stateオブジェクトを準備しなければなりません。",br(),"これを行うには、プラグインに以下のメソッドを実装します。"),
+				crel("pre",`- (BOOL)pluginState:(NSData* _Nonnull * _Nullable)pluginState
+	atTime:(CMTime)renderTime
+	quality:(FxQuality)qualityLevel
+	error:(NSError**)error;
+`),
+				crel("p","レンダリング、",link("https://developer.apple.com/documentation/professional_video_applications/fximagetile?language=objc","FxImageTile"),"、入力と出力の矩形の詳細については", link("./rendering_in_fxplug.html","Rendering in FxPlug"),"、",link("./working_with_tiled_images.html","Working with tiled images"),"を参照してください。",br(),
+					"プラグインの状態の詳細については",link("./communicating_with_the_plug-in_state.html","Communicating with the plug-in state"),"を参照してください。",br(),
+					"FxPlugでのタイミングの詳細については",link("./scheduling_media_in_plug-ins.html","Scheduling media in plug-ins"),"を参照してください。")
+			));
+				
+		</script>
+	</body>
+</html>

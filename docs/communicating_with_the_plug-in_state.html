@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex,nofollow">
+		<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+		<title>Communicating with the plug-in state</title>
+		<link rel="icon" href="data:;base64,=">
+		<style>
+			
+			* {
+				margin:0;
+				padding:0;
+				text-rendering:optimizeSpeed;
+				letter-spacing:1.5px;
+				font-kerning:none;
+				outline : none;
+			}
+			
+			body {
+				-webkit-text-size-adjust:100%;
+				font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+				overflow-x:hidden;
+				color:#242424;
+				font-weight:normal;
+				font-size:14px;
+				line-height:26px;
+				font-feature-settings:"palt";
+				word-wrap: break-word;
+				word-break:break-word;
+				text-align:left;
+				-webkit-tap-highlight-color: transparent;
+				background:#FFF;
+			}
+			
+			::selection { background:rgba(128,128,128,0.25); }
+			::-moz-selection { background:rgba(128,128,128,0.25); }
+			pre::selection { background:rgba(255,255,255,0.25); }
+			pre::-moz-selection { background:rgba(255,255,255,0.25); }
+			img::selection, iframe::selection { background:rgba(0,0,0,0); }
+			img::-moz-selection, iframe::-moz-selection { background:rgba(0,0,0,0); }
+			
+			.strikethrough { text-decoration:line-through; } 
+			.br:before { content:"\A"; white-space:pre; }
+			
+			.condensed {
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			#container {
+				position:relative;
+				width:86vw;
+				min-height:100%;
+				max-width:1921px;
+				margin:0 auto 0 auto;
+				padding:2px 0 48px 0;
+			}
+			
+			h1, h2, h3, h4, p, ul {
+				margin-top:17px;
+				margin-bottom:-7px;
+			}
+			
+			h1, h2, h3, h4 {
+				font-weight:600;
+			}
+			
+			h1 {
+				font-size:22px;
+				line-height:32px;
+				text-align:justify;
+				text-align-last:left;
+				word-wrap: break-word;
+				word-break:break-all;
+			}
+			
+			h2 {
+				font-size:18px;
+				line-height:28px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h3 {
+				font-size:16px;
+				line-height:26px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h4, p, li {
+				font-size:14px;
+				line-height:24px;
+			}
+			
+			li {
+				margin-left:1.5em;
+			}
+			
+			p {
+				font-weight:normal;
+				text-align:left;
+				word-wrap: break-word;
+				word-break: break-strict;
+			}
+			
+			#container > h1:last-child,
+			#container > h2:last-child,
+			#container > h3:last-child,
+			#container > p:last-child {
+				margin-bottom:0px;
+			}
+			
+			img, pre, table, video, audio { margin-top:24px; }
+			
+			a {
+				color:#00F;
+				text-decoration:none;
+			}
+			
+			pre {
+				font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+				font-size:13px;
+				line-height:20px;
+				border-radius:2px;
+				padding:12px 16px;
+				background-color:#336;
+				color:#EEE;
+				tab-size:2;
+				white-space:pre;
+				white-space:pre-wrap;
+				white-space:-pre-wrap;
+				white-space:-o-pre-wrap;
+				white-space:-moz-pre-wrap;
+				white-space:-hp-pre-wrap;
+				word-wrap:break-word;
+				word-break:break-all;
+				box-sizing: border-box;
+			}
+			
+			img {
+				display:block;
+				width:auto;
+				max-width:100%;
+				background:#FAFAFA;
+				vertical-align:top;
+			}
+			
+			p.required:after {
+				content:''; 
+				height: 6px; 
+				width: 6px; 
+				display:inline-block;
+				border-radius: 50%;
+				background:#F44;
+				vertical-align:top;
+				margin-left:4px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<script>
+			
+			// https://github.com/KoryNunn/crel/blob/master/crel.min.js
+			(e=>{const t="function",n="isNode",o=(e,t)=>typeof e===t,r=(e,t)=>{null!==t&&(Array.isArray(t)?t.map(t=>r(e,t)):(i[n](t)||(t=document.createTextNode(t)),e.appendChild(t)))};function i(e,a){let d,f,l=arguments,c=1;if(e=i.isElement(e)?e:document.createElement(e),o(a,"object")&&!i[n](a)&&!Array.isArray(a))for(d in c++,a)f=a[d],o(d=i.attrMap[d]||d,t)?d(e,f):o(f,t)?e[d]=f:e.setAttribute(d,f);for(;c<l.length;c++)r(e,l[c]);return e}i.attrMap={},i.isElement=(e=>e instanceof Element),i[n]=(e=>e instanceof Node),i.proxy=new Proxy(i,{get:(e,t)=>(!(t in i)&&(i[t]=i.bind(null,t)),i[t])}),e(i,t)})((e,t)=>{"object"==typeof exports?module.exports=e:typeof define===t&&define.amd?define(()=>e):this.crel=e});
+				
+			const link = (url,text)=>{
+				return crel("a",{"href":url,"target":"_blank",rel:"noopener noreferrer"},text);
+			};
+				
+			const br = ()=>{
+				return crel("br");
+			};
+				
+			const bold = (text)=>{
+				return crel("span",{"style":"font-weight:bold"},text);
+			};
+				
+			crel(document.body,crel("div",{"id":"container"},
+				crel("h1",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/communicating_with_the_plug-in_state?language=objc","Communicating with the plug-in state")),
+				crel("p","FxPlugプラグインがレンダリングするために必要な情報（パラメーター値など）を準備します。"),
+				crel("h2","Overview"),
+				crel("p","FxPlug 3と4の間の最大の変更点の1つは、レンダリング時にFxPlug APIアクセスがなくなったことです。",br(),
+					"レンダリングはプロセス外で行われるため、パフォーマンスに不可欠なホストアプリとプラグイン間のやり取りの量が削減されます。",br(),
+					"したがって、レンダリング時に",link("https://developer.apple.com/documentation/professional_video_applications/fxparameterretrievalapi_v6?language=objc","FxParameterRetrievalAPI_v6"),"を呼び出すとnilが返されます。"),
+				
+				crel("p","これは、プラグインがレンダリング前にレンダリングに必要なものを準備する必要があることを意味します。",br(),
+					"その後、レンダリング時に、この情報がプラグインに提供されます。",br(),
+					"この情報はPlug-in Stateと呼ばれます。",br(),
+					"これは、レンダリング時にレンダリングメソッドに渡すことができる、独自に作成したNSDataのバイトバッファによって表されます。",br(),
+					"NSDataオブジェクトの内容は任意ですが、通常はホストアプリケーションのUI からのパラメーター値、またはそれらのパラメーター値から計算された値が含まれます。"),
+	
+				crel("h2","Prepare the plug-in state / プラグイン状態を準備する"),
+				crel("p","ここで、プラグインはパラメータ値を要求し、必要に応じてNSDataオブジェクトに必要な情報を保存できます。",br(),
+					"FxBrightnessの例では、値の構造体にプラグインパラメーター値が入力され、最終的に次のようにNSDataオブジェクトに結合されます。"),
+				
+				crel("pre",`- (BOOL)pluginState:(NSData**)pluginState atTime:(CMTime)renderTime quality:(FxQuality)qualityLevel error:(NSError**)error {
+	BOOL succeeded = NO;
+	id<FxParameterRetrievalAPI_v6>  paramGetAPI = [_apiManager apiForProtocol:@protocol(FxParameterRetrievalAPI_v6)];
+	if(paramGetAPI!=nil) {
+		double brightness = 1.0;
+		[paramGetAPI getFloatValue:&brightness fromParameter:1 atTime:renderTime];
+		*pluginState = [NSData dataWithBytes:&brightness length:sizeof(brightness)];
+		if(*pluginState!=nil) {
+			succeeded = YES;
+		}
+	}
+	else {
+		*error = [NSError errorWithDomain:FxPlugErrorDomain code:kFxError_ThirdPartyDeveloperStart+20 userInfo:@{NSLocalizedDescriptionKey:@"Unable to retrieve FxParameterRetrievalAPI_v6 in [-TileableRemoteBrightness pluginStateAtTime:]"}];
+	}
+	return succeeded;
+}`),
+				
+				crel("p","レンダリングの時間になると、NSData が返され、その時点で次のようにデータを解凍できます。"),
+				
+				crel("pre",`double brightness = 0.0; 
+[pluginState getBytes:&brightness length:sizeof(brightness)];`)	
+			));
+				
+		</script>
+	</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex,nofollow">
+		<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+		<title>Working with tiled images</title>
+		<link rel="icon" href="data:;base64,=">
+		<style>
+			
+			* {
+				margin:0;
+				padding:0;
+				text-rendering:optimizeSpeed;
+				letter-spacing:1.5px;
+				font-kerning:none;
+				outline : none;
+			}
+			
+			body {
+				-webkit-text-size-adjust:100%;
+				font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+				overflow-x:hidden;
+				color:#242424;
+				font-weight:normal;
+				font-size:14px;
+				line-height:26px;
+				font-feature-settings:"palt";
+				word-wrap: break-word;
+				word-break:break-word;
+				text-align:left;
+				-webkit-tap-highlight-color: transparent;
+				background:#FFF;
+			}
+			
+			::selection { background:rgba(128,128,128,0.25); }
+			::-moz-selection { background:rgba(128,128,128,0.25); }
+			pre::selection { background:rgba(255,255,255,0.25); }
+			pre::-moz-selection { background:rgba(255,255,255,0.25); }
+			img::selection, iframe::selection { background:rgba(0,0,0,0); }
+			img::-moz-selection, iframe::-moz-selection { background:rgba(0,0,0,0); }
+			
+			.strikethrough { text-decoration:line-through; } 
+			.br:before { content:"\A"; white-space:pre; }
+			
+			.condensed {
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			#container {
+				position:relative;
+				width:86vw;
+				min-height:100%;
+				max-width:1921px;
+				margin:0 auto 0 auto;
+				padding:2px 0 48px 0;
+			}
+			
+			h1, h2, h3, h4, p, ul {
+				margin-top:17px;
+				margin-bottom:-7px;
+			}
+			
+			h1, h2, h3, h4 {
+				font-weight:600;
+			}
+			
+			h1 {
+				font-size:22px;
+				line-height:32px;
+				text-align:justify;
+				text-align-last:left;
+				word-wrap: break-word;
+				word-break:break-all;
+			}
+			
+			h2 {
+				font-size:18px;
+				line-height:28px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h3 {
+				font-size:16px;
+				line-height:26px;
+				position:relative;
+				width:111%;
+				transform-origin:top left;
+				transform:scale(0.9,1);
+			}
+			
+			h4, p, li {
+				font-size:14px;
+				line-height:24px;
+			}
+			
+			li {
+				margin-left:1.5em;
+			}
+			
+			p {
+				font-weight:normal;
+				text-align:left;
+				word-wrap: break-word;
+				word-break: break-strict;
+			}
+			
+			#container > h1:last-child,
+			#container > h2:last-child,
+			#container > h3:last-child,
+			#container > p:last-child {
+				margin-bottom:0px;
+			}
+			
+			img, pre, table, video, audio { margin-top:24px; }
+			
+			a {
+				color:#00F;
+				text-decoration:none;
+			}
+			
+			pre {
+				font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+				font-size:13px;
+				line-height:20px;
+				border-radius:2px;
+				padding:12px 16px;
+				background-color:#336;
+				color:#EEE;
+				tab-size:2;
+				white-space:pre;
+				white-space:pre-wrap;
+				white-space:-pre-wrap;
+				white-space:-o-pre-wrap;
+				white-space:-moz-pre-wrap;
+				white-space:-hp-pre-wrap;
+				word-wrap:break-word;
+				word-break:break-all;
+				box-sizing: border-box;
+			}
+			
+			img {
+				display:block;
+				width:auto;
+				max-width:100%;
+				background:#FAFAFA;
+				vertical-align:top;
+			}
+			
+			p.required:after {
+				content:''; 
+				height: 6px; 
+				width: 6px; 
+				display:inline-block;
+				border-radius: 50%;
+				background:#F44;
+				vertical-align:top;
+				margin-left:4px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<script>
+			
+			// https://github.com/KoryNunn/crel/blob/master/crel.min.js
+			(e=>{const t="function",n="isNode",o=(e,t)=>typeof e===t,r=(e,t)=>{null!==t&&(Array.isArray(t)?t.map(t=>r(e,t)):(i[n](t)||(t=document.createTextNode(t)),e.appendChild(t)))};function i(e,a){let d,f,l=arguments,c=1;if(e=i.isElement(e)?e:document.createElement(e),o(a,"object")&&!i[n](a)&&!Array.isArray(a))for(d in c++,a)f=a[d],o(d=i.attrMap[d]||d,t)?d(e,f):o(f,t)?e[d]=f:e.setAttribute(d,f);for(;c<l.length;c++)r(e,l[c]);return e}i.attrMap={},i.isElement=(e=>e instanceof Element),i[n]=(e=>e instanceof Node),i.proxy=new Proxy(i,{get:(e,t)=>(!(t in i)&&(i[t]=i.bind(null,t)),i[t])}),e(i,t)})((e,t)=>{"object"==typeof exports?module.exports=e:typeof define===t&&define.amd?define(()=>e):this.crel=e});
+				
+			const link = (url,text)=>{
+				return crel("a",{"href":url,"target":"_blank",rel:"noopener noreferrer"},text);
+			};
+				
+			const br = ()=>{
+				return crel("br");
+			};
+				
+			const bold = (text)=>{
+				return crel("span",{"style":"font-weight:bold"},text);
+			};
+				
+			crel(document.body,crel("div",{"id":"container"},
+				crel("h1",link("https://developer.apple.com/documentation/professional_video_applications/fxplug/working_with_tiled_images?language=objc","Working with tiled images")),
+				crel("p","効率を向上させるために、FxPlug プラグインで画像の必要なタイルのみをレンダリングします。"),
+				crel("h2","Overview"),
+				crel("p","FxPlug 4のレンダリングはタイル化可能です。",br(),"これは、入力イメージをレンダリングのために小さなタイルに分割できることを意味します。",br(),"これにより、ホストアプリはプラグインが各タイルでレンダリングする必要がある正確なピクセルのみを要求し、プラグインはホストにプラグインがサンプリングする必要があるピクセルを正確に伝えるため、プラグインの効率が向上します。"),
+				crel("p","2つのメソッド",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378643-sourcetilerect?language=objc","sourceTileRect:sourceImageIndex:sourceImages:destinationTileRect:destinationImage:pluginState:atTime:error:"),"と",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378635-destinationimagerect?language=objc"," destinationImageRect:sourceImages:destinationImage:pluginState:atTime:error:"),"は入出力テクスチャの予想される領域を定義するのに役立ちます。",br(),"これら2つのピクセル領域セットはsourceTileRectとdestinationImageRectです。",br(),
+					"これらはCore Imageなどの他のレンダリング テクノロジでは、それぞれ対象領域（ROI）および全体の領域（DOD）としても知られています。"),
+				crel("h2","Define tiles for rendering / レンダリング用のタイルを定義する"),
+				crel("p","ホストアプリがレンダリングをタイル表示するかどうかを決定するには、まずプラグインが入力の領域をどのように変換するかを知る必要があります。",br(),
+					"たとえば、グローフィルターは入力イメージのimagePixelBoundsを拡張し、新しい領域を計算してdestinationImageRectとして返す必要があります。",br(),
+					"ただし、カラーフィルターは領域の変更を必要とせず、代わりに入力イメージの領域をdestinationImageRectとして返すだけです。",br(),
+					"領域に準拠する必要がないジェネレーターの場合は、destinationImageRectをkFxRect_Infinite に設定することになるでしょう。"),
+				crel("p","destinationImageRectとハードウェア機能に基づいて、ホストアプリは入力イメージを複数のタイルに分割し、個別のスレッドで各タイルの個別のレンダリングを要求することを選択する場合があります。",br(),
+					"このため、ほとんどのフィルターではsourceTileRectとdestinationImageRectに対して明確に定義された領域が必要になります。",br(),
+					"ホストは、要求されたdestinationTileRectを提供し、プラグインがsourceTileRectを計算して返すことを期待します。",br(),
+					"この例のように、フィルターがピクセルの色のみを調整し1:1対応で新しいピクセルを出力する場合、各sourceTileRectは指定されたdestinationTileRectと等しくなります。"),
+				
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/8422cacbb2/rendered2x-1647981984.png"}),
+				
+				crel("p","出力タイルのピクセル値を計算するには、画像をぼかす場合など、ソース画像のより大きいまたは小さい領域をサンプリングする必要がある場合があります。",br(),
+					"このような場合、各sourceTileRectは適切なサンプル領域をカバーするように拡張する必要があります。",br(),
+					"ほとんどの場合sourceTileRectの計算はフィルターのフラグメントシェーダーを模倣しますが、計算する必要があるのは矩形の左下と右上の座標だけです。",br(),
+					"ぼかしたときに画像を入力画像の境界に合わせてトリミングしたままにする必要がある場合、この例のようにdestinationImageRectはソース画像のimagePixelBoundsと等しくなければなりません。"),
+				
+				crel("img",{"src":"https://docs-assets.developer.apple.com/published/73da0d2413/rendered2x-1647981990.png"}),
+				
+				crel("p","フィルターによって画像内のピクセルが歪んだり畳み込まれたりする場合、より大きいまたは小さいdestinationImageRectが必要になる場合があります。",br(),
+					"destinationImageRectの計算は通常、プラグインのフラグメントシェーダーの逆です。",br(),
+					"次の例は、X軸のみのスケールを拡大するフィルターを示しています。"),
+				
+				crel("h2","Set the destination rectangle bounds / 出力の矩形の領域を設定する"),
+				
+				crel("p","プラグインは、次の3つのタイプの出力矩形領域のいずれかを返す必要があります。",br(),
+					"無限領域（無限に繰り返すジェネレーター）、元の領域（カラーフィルター）、元の領域とは異なる領域（入力を拡大または縮小するフィルター）です。"),
+				
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378635-destinationimagerect?language=objc","destinationImageRect:sourceImages:destinationImage:pluginState:atTime:error:"),"メソッドは入力、プラグインの状態、レンダリング時間を提供します。",br(),
+					"これらのパラメータから、出力先の矩形を計算できます。",br(),
+					"たとえば、以下のコードはFxGradientCheckerboardジェネレーターサンプルプラグインからのものです。",br(),
+					"このジェネレーターの場合、チェッカーボードは任意の位置で生成でき、適合する自然な領域がないため、無限の矩形（kFxRect_Infinite）を返します。"),
+				
+				crel("pre",`- (BOOL)destinationImageRect:(FxRect *)destinationImageRect sourceImages:(NSArray<FxImageTile *> *)sourceImages destinationImage:(nonnull FxImageTile *)destinationImage pluginState:(NSData *)pluginState atTime:(CMTime)renderTime error:(NSError * _Nullable *)outError {
+	*destinationImageRect = kFxRect_Infinite;
+	return YES;
+}`),
+				crel("p","フィルターが入力画像の全体的な寸法を変更しない場合は、単にソース画像の元の境界を返します。",br(),
+					"以下の例は、FxSimpleColorCorrectorサンプルプラグインからのものです。"),
+				
+				crel("pre",`- (BOOL)destinationImageRect:(FxRect *)destinationImageRect sourceImages:(NSArray<FxImageTile *> *)sourceImages destinationImage:(FxImageTile *)destinationImage pluginState:(NSData *)pluginState atTime:(CMTime)renderTime error:(NSError * _Nullable *)outError {
+		*destinationImageRect = sourceImages[0].imagePixelBounds;
+		return YES;
+}`),
+				
+				crel("p","領域を歪めたり変換したりするより複雑なフィルターの場合は、出力境界を計算するためにさらに多くの作業を行う必要があります。",br(),
+					"FxDynamicRegistrationと同じサンプルプロジェクトにあるSimpleScaleクラスのこの例では、まず逆ピクセル変換を使用して、入力画像のピクセル領域をイメージ空間に変換します。",br(),
+					"次に、処理後の画像の左下隅と右上隅の新しい位置を計算し、ピクセル変換を使用してピクセル空間に変換し直して、destinationImageRectを返します。"),
+				
+				crel("pre",`- (BOOL)destinationImageRect:(FxRect *)destinationImageRect sourceImages:(NSArray<FxImageTile *> *)sourceImages destinationImage:(nonnull FxImageTile *)destinationImage pluginState:(NSData *)pluginState atTime:(CMTime)renderTime error:(NSError * _Nullable *)outError {
+	double scale = 1.5;
+	[pluginState getBytes:&scale length:sizeof(scale)];
+	FxPoint2D ll = { sourceImages[0].imagePixelBounds.left, sourceImages[0].imagePixelBounds.bottom };
+	FxPoint2D ur = { sourceImages[0].imagePixelBounds.right,sourceImages[0].imagePixelBounds.top };
+	
+	// Convert from input pixel space to image space.
+	ll = [sourceImages[0].inversePixelTransform transform2DPoint:ll];
+	ur = [sourceImages[0].inversePixelTransform transform2DPoint:ur];
+	
+	// Subtract off the center.
+	FxPoint2D   imageCenter = { (ll.x+ur.x)/2.0, (ll.y+ur.y)/2.0 };
+	ll = SubtractPoints(ll,imageCenter);
+	ur = SubtractPoints(ur,imageCenter);
+	
+	// Perform the scaling.
+	ll = MultiplyPointsByScalar(ll,scale);
+	ur = MultiplyPointsByScalar(ur,scale);
+	
+	// Add back in the center.
+	ll = AddPoints(ll,imageCenter);
+	ur = AddPoints(ur,imageCenter);
+	
+	// Convert back to output pixel space.
+	ll = [destinationImage.pixelTransform transform2DPoint:ll];
+	ur = [destinationImage.pixelTransform transform2DPoint:ur];
+
+	// Save to the output rectangle.
+	destinationImageRect->left = (SInt32)(floor(ll.x));
+	destinationImageRect->right = (SInt32)(ceil(ur.x));
+	destinationImageRect->bottom = (SInt32)(floor(ll.y));
+	destinationImageRect->top = (SInt32)(ceil(ur.y));
+	
+	return YES;
+}`),
+				
+				crel("h2","Determine the source tile area required to render / レンダリングに必要な入力タイル領域を決定する"),
+				
+				crel("p","レンダリングする既知の出力矩形を指定して",link("https://developer.apple.com/documentation/professional_video_applications/fxtileableeffect/3378643-sourcetilerect?language=objc","sourceTileRect:sourceImageIndex:sourceImages:destinationTileRect:destinationImage:pluginState:atTime:error:"),"メソッドを使用して、必要な入力の量を指定します。"),
+				crel("p","プラグインには、次の3つの入力矩形いずれかが必要です。",br(),
+				"入力矩形の定義が必要ない（ジェネレーター）、出力タイルと等しい入力矩形（カラーフィルター）、または明確に定義された入力矩形（歪みフィルター、畳み込みフィルター）。"),
+				
+				crel("p","この最初の例では、ジェネレーターは通常、入力からピクセルをサンプリングしないためsourceTileRectは",link("https://developer.apple.com/documentation/professional_video_applications/kfxrect_empty?language=objc","kFxRect_Empty"),"に設定されます。",br(),
+					"この例はFxGradientCheckerboardジェネレーターサンプルプラグインからのものです。",br(),
+					"ソースピクセルをサンプリングしたり処理したりする必要がないため、チェッカーボードを生成するためのソースは必要ありません。",br(),
+					"これは最も扱いやすいケースです。"),
+				
+				crel("pre",`- (BOOL)sourceTileRect:(FxRect *)sourceTileRect sourceImageIndex:(NSUInteger)sourceImageIndex sourceImages:(NSArray<FxImageTile *> *)sourceImages destinationTileRect:(FxRect)destinationTileRect destinationImage:(FxImageTile *)destinationImage pluginState:(NSData *)pluginState atTime:(CMTime)renderTime error:(NSError * _Nullable *)outError {
+	*sourceTileRect = kFxRect_Empty;
+	return YES;
+}`),
+				
+				crel("p","この2番目の例はFxDynamicRegistrationサンプルプラグインのDynamicRegBrightnessフィルターからのものです。",br(),
+					"この場合、プラグインは単純に入力ピクセルのカラー値をフィルタリングし1:1のピクセル対応でそれらを返します。",br(),
+					"したがって、必要な入力ピクセルはすべて出力タイル内に含まれます。"),
+			
+				crel("pre",`- (BOOL)sourceTileRect:(FxRect *)sourceTileRect sourceImageIndex:(NSUInteger)sourceImageIndex sourceImages:(NSArray<FxImageTile *> *)sourceImages destinationTileRect:(FxRect)destinationTileRect destinationImage:(FxImageTile *)destinationImage pluginState:(NSData *)pluginState atTime:(CMTime)renderTime error:(NSError * _Nullable *)outError {
+	*sourceTileRect = destinationTileRect;
+	return YES;
+}`),
+				
+				crel("p","このメソッドの最後の例ではFxDynamicRegistrationと同じサンプルプロジェクトにあるSimpleScaleクラスを確認します。",br(),
+					"入力メソッドは、明確に定義された入力矩形を必要とし、ピクセル変換とスケール操作を使用して、自明ではないsourceTileRectを返す様子を示すため、はるかに複雑です。",br(),
+					"各ステップにはコメントが付けられ、最終的な境界がどのように決定されるかを示します。"),
+				
+				crel("pre",`- (BOOL)sourceTileRect:(FxRect *)sourceTileRect sourceImageIndex:(NSUInteger)sourceImageIndex sourceImages:(NSArray<FxImageTile *> *)sourceImages destinationTileRect:(FxRect)destinationTileRect destinationImage:(FxImageTile *)destinationImage pluginState:(NSData *)pluginState atTime:(CMTime)renderTime error:(NSError * _Nullable *)outError {
+	double scale = 1.5;
+	[pluginState getBytes:&scale length:sizeof(scale)];
+	
+	// Get output pixel space coordinates.
+	FxPoint2D ll = { destinationTileRect.left, destinationTileRect.bottom };
+	FxPoint2D ur = { destinationTileRect.right, destinationTileRect.top };
+	
+	// Convert to image space.
+	ll = [destinationImage.inversePixelTransform transform2DPoint:ll];
+	ur = [destinationImage.inversePixelTransform transform2DPoint:ur];
+	
+	// Convert the whole output rectangle to image space.
+	FxPoint2D oll = { destinationImage.imagePixelBounds.left, destinationImage.imagePixelBounds.bottom };
+	FxPoint2D our = { destinationImage.imagePixelBounds.right, destinationImage.imagePixelBounds.top };
+	oll = [destinationImage.inversePixelTransform transform2DPoint:oll];
+	our = [destinationImage.inversePixelTransform transform2DPoint:our];
+	
+	// Subtract off the image space center.
+	FxPoint2D imageSpaceCenter = { (oll.x+our.x)/2.0, (oll.y+our.y)/2.0 };
+	ll = SubtractPoints(ll, imageSpaceCenter);
+	ur = SubtractPoints(ur, imageSpaceCenter);
+	
+	// Scale appropriately.
+	ll = MultiplyPointsByScalar(ll,1.0/scale);
+	ur = MultiplyPointsByScalar(ur,1.0/scale);
+	
+	// Add in the image space center.
+	ll = AddPoints(ll, imageSpaceCenter);
+	ur = AddPoints(ur, imageSpaceCenter);
+	
+	// Convert to input pixel space.
+	ll = [sourceImages[0].pixelTransform transform2DPoint:ll];
+	ur = [sourceImages[0].pixelTransform transform2DPoint:ur];
+	
+	// Save it in the input tile rectangle.
+	sourceTileRect->left = floor(ll.x);
+	sourceTileRect->right = ceil(ur.x);
+	sourceTileRect->bottom = floor(ll.y);
+	sourceTileRect->top = ceil(ur.y);
+	
+	return YES;
+}
+
+static FxPoint2D AddPoints(const FxPoint2D a, const FxPoint2D b) {
+	FxPoint2D result = { a.x+b.x, a.y+b.y };
+	return result;
+}
+
+static FxPoint2D SubtractPoints(const FxPoint2D a, const FxPoint2D b) {
+	FxPoint2D result = { a.x-b.x, a.y-b.y };
+	return result;
+}
+
+static FxPoint2D MultiplyPointsByScalar(const FxPoint2D a, const double scalar) {
+	FxPoint2D result = { a.x*scalar, a.y*scalar };
+	return result;
+}`),
+				
+				crel("p","変換を処理する方法のより洗練された例については、FxDynamicRegistrationサンプルプロジェクトのSimpleScaleコードサンプルを参照してください。"),
+				
+				crel("h4","Important"),
+				crel("p",link("https://developer.apple.com/documentation/professional_video_applications/kfxpropertykey_needsfullbuffer?language=objc","kFxPropertyKey_NeedsFullBuffer"),"プロパティキーをYESに設定すると、プラグインの処理にはイメージ全体が必要であるため、ホストは入力をタイル表示しないことをホストに示します。",br(),
+					"タイリングが実装されていない場合、プラグインは大きな画像入力をレンダリングできない可能性があります。")
+				
+				
+			));
+				
+		</script>
+	</body>
+</html>
